@@ -1,0 +1,108 @@
+/*TaskItem*/
+.task {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 2rem;
+}
+
+.taskBody {
+    width: 100%;
+    text-align: justify;
+    transition: .5s; /* Время эффекта */
+    border: .1rem dashed #8c929d;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: #565c65;
+}
+
+.taskBody:hover {
+    border: .1rem solid #8c929d;
+    background-color: #252229;
+    color: white;
+}
+
+.completed {
+    width: 100%;
+    text-align: justify;
+    transition: .5s; /* Время эффекта */
+    border: .1rem dashed #8c929d;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: #636a72;
+    font-size: 1.5rem;
+    cursor: pointer;
+    text-decoration: line-through;
+}
+
+.completed:hover {
+    border: .1rem solid #8c929d;
+    background-color: #3c3f41;
+    color: white;
+}
+
+.task button {
+    transition: .5s; /* Время эффекта */
+    margin: 0 0 0 1rem;
+    font-size: 1.5rem;
+    color: #a6acb4;
+    background-color: #565c65;
+    border: .1rem dashed #8c929d;
+    border-radius: 1rem;
+    padding: 0 1rem;
+    cursor: pointer;
+}
+
+.edit:hover {
+    border: .1rem solid white;
+    color: #282e33;
+    background-color: #c0f1b8;
+}
+.delete:hover {
+    border: .1rem solid white;
+    color: #282e33;
+    background-color: #d29e9e;
+}
+
+/*PageTasks*/
+
+.addTask {
+    display: flex;
+    justify-content: center;
+    margin: 0 2rem 2rem 2rem;
+}
+
+.addTask input {
+    width: 100%;
+    transition: .5s; /* Время эффекта */
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    outline: none;
+    margin-right: 1rem;
+    background-color: #565c65;
+}
+
+.addTask input:focus {
+    background-color: #868d93;
+}
+
+.addTask button {
+    transition: .5s; /* Время эффекта */
+    font-size: 1.3rem;
+    color: white;
+    background-color: #565c65;
+    border: 0;
+    padding: 0 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.addTask button:hover {
+    color: #565c65;
+    background-color: white;
+}
