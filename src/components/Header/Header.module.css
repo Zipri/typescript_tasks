@@ -4,7 +4,17 @@
     margin-bottom: 2rem;
 }
 
-.header div {
+.userPart {
+    background-color: #282e33;
+    color: #c3c8ce;
+    font-size: 1.3rem;
+    width: 100%;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.button {
     transition: .5s; /* Время эффекта */
     background-color: #282e33;
     color: #c3c8ce;
@@ -16,7 +26,7 @@
     cursor: pointer;
 }
 
-.header div:hover {
+.button:hover {
     background-color: #33383f;
     color: white;
 }

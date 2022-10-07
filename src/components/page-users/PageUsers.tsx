@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {IUser} from "../../types/types";
+
 import Loader from "../../common/Loader";
 import List from "../../common/List";
 import UserItem from "./UserItem";
+import {IUserOld} from "../../types/types";
 
 const PageUsers = () => {
     const [loading, setLoading] = useState(true)
-    const [users, setUsers] = useState<IUser[]>([])
+    const [users, setUsers] = useState<IUserOld[]>([])
 
     useEffect(() => {
         getUsers()
@@ -17,7 +18,7 @@ const PageUsers = () => {
             setLoading(true)
             fetch('https://jsonplaceholder.typicode.com/users')
                 .then(response => response.json())
-                .then((json: IUser[]) => {
+                .then((json: IUserOld[]) => {
                     setUsers(json)
                     setLoading(false)
                 })
@@ -26,7 +27,7 @@ const PageUsers = () => {
 
     if (loading) return <Loader/>
     return <div>
-        <List items={users} renderItem={(user: IUser) => <UserItem user={user} key={user.id}/>}/>
+        <List items={users} renderItem={(user: IUserOld) => <UserItem user={user} key={user.id}/>}/>
     </div>
 };
 

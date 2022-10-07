@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import s from './Users.module.css'
-import {IUser} from "../../types/types";
+import {IUserOld} from "../../types/types";
 
 interface UIProps {
-    user: IUser
+    user: IUserOld
 }
 
 const UserItem: FC<UIProps> = ({user}) => {

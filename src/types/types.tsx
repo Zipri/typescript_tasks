@@ -4,7 +4,7 @@ interface IAddress {
     zipcode: string,
 }
 
-export interface IUser {
+export interface IUserOld {
     id: number,
     name: string,
     username: string,
