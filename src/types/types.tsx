@@ -13,7 +13,8 @@ export interface IUserOld {
 }
 
 export interface ITask {
-    id: number,
     title: string,
-    completed: boolean
+    completed: boolean,
+    createdAt: string,
+    uid: string
 }

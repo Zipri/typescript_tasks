@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import s from './Task.module.css'
-import {ITask} from "../../types/types";
+import firebase from "firebase/compat/app";
+import DocumentData = firebase.firestore.DocumentData;
 
 interface TIProps {
-    task: ITask
+    task: DocumentData
 }
 
 const TaskItem: FC<TIProps> = ({task}) => {

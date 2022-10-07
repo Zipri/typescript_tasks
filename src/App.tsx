@@ -10,7 +10,6 @@ import firebase from "firebase/compat/app";
 
 const App = () => {
     const user = useContext(AuthContext)
-
     const handleLoginGoogle = async () => {
         try {
             const provider = new firebase.auth.GoogleAuthProvider()
@@ -19,16 +18,15 @@ const App = () => {
             alert(`Oops, something went wrong\n${error}`)
         }
     }
-
     const signOut = async () => {
         await auth.signOut();
-    };
+    }
 
     return <BrowserRouter>
         <Header user={user} handleLoginGoogle={handleLoginGoogle} signOut={signOut}/>
         <Routes>
-            <Route path='/' element={<PageTasks/>}/>
-            <Route path='/tasks' element={<PageTasks/>}/>
+            <Route path='/' element={<PageTasks user={user}/>}/>
+            <Route path='/tasks' element={<PageTasks user={user}/>}/>
             <Route path='/users' element={<PageUsers/>}/>
             <Route path='*' element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
         </Routes>
