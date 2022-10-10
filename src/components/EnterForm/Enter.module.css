@@ -1,0 +1,47 @@
+.enterBody {
+    background-color: #282e33;
+    color: #c3c8ce;
+    opacity: 0;
+    transform: translateY(-150%);
+    animation: ani 1.3s forwards;
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes ani {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+    0% {transform: translateY(-150%);}
+    100% {transform: translateY(0);}
+}
+
+.button {
+    width: 100%;
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    padding: 1rem;
+    cursor: pointer;
+    background-color: #545454;
+    color: white;
+    border: 0;
+    border-radius: 1rem;
+}
+
+.button:hover {
+    background-color: #c3c8ce;
+    color: #282e33;
+}
+
+.inputFrom {
+    font-size: 1.3rem;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    border-radius: 1rem;
+}
+
+.formDiv {
+    width: 50%;
+}

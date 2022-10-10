@@ -6,9 +6,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #3a4047;
+  transition: 0s; /* Время эффекта */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  transition: .5s; /* Время эффекта */
 }

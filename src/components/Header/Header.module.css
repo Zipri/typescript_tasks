@@ -1,7 +1,6 @@
 .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2rem;
 }
 
 .userPart {
@@ -15,7 +14,6 @@
 }
 
 .button {
-    transition: .5s; /* Время эффекта */
     background-color: #282e33;
     color: #c3c8ce;
     font-size: 1.3rem;

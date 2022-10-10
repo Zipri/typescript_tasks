@@ -5,7 +5,7 @@ import List from "../../common/List";
 import TaskItem from "./TaskItem";
 import firebase from "firebase/compat/app";
 import {firestore} from "../../firebase/firebase";
-import DocumentData = firebase.firestore.DocumentData;
+import {ITask} from "../../types/types";
 
 
 interface PTProps {
@@ -15,7 +15,7 @@ interface PTProps {
 const PageTasks: FC<PTProps> = ({user}) => {
     const [loading, setLoading] = useState(true)
     const [value, setValue] = useState<string>('')
-    const [tasks, setTasks] = useState<DocumentData[]>([])
+    const [tasks, setTasks] = useState<ITask[]>([])
 
 
     useEffect(() => {
@@ -26,9 +26,13 @@ const PageTasks: FC<PTProps> = ({user}) => {
     async function getTasks() {
         try {
             setLoading(true)
-            firestore.collection("tasks").get()
-                .then((doc) =>
-                    setTasks(doc.docs.map(item => item.data())))
+            if (user) {
+                firestore.collection("tasks").get()
+                    .then((doc) =>
+                        // setTasks(doc.docs.map((item: ITask) => item.data()))
+                        doc.docs.map(item => console.log(item.data()))
+                    )
+            }
             setLoading(false)
         } catch (error) {
             alert(error)
@@ -53,6 +57,7 @@ const PageTasks: FC<PTProps> = ({user}) => {
     }
 
     if (loading) return <Loader/>
+    if (!user) return <h1 style={{textAlign: 'center', color: 'white'}}>Please Sign in</h1>
     return <div>
         <div className={s.addTask}>
             <input value={value}
@@ -60,8 +65,9 @@ const PageTasks: FC<PTProps> = ({user}) => {
                    onChange={(e) => setValue(e.target.value)}/>
             <button onClick={handleAddTask}>Add</button>
         </div>
-        {tasks
-            ? <List items={tasks} renderItem={(task: DocumentData) => <TaskItem task={task} key={task.createdAt}/>}/>
+        {tasks.length
+            ? <List items={tasks}
+                    renderItem={(task: ITask) => <TaskItem task={task} key={task.createdAt.toDateString()}/>}/>
             : <h1 style={{textAlign: 'center', color: 'white'}}>No tasks yet</h1>}
     </div>
 };

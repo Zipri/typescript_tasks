@@ -1,7 +1,8 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import s from './Header.module.css'
 import {useNavigate} from "react-router-dom";
 import firebase from "firebase/compat/app";
+import Enter from "../EnterForm/Enter";
 
 interface HProps {
     user: firebase.User | null,
@@ -11,29 +12,33 @@ interface HProps {
 
 const Header: FC<HProps> = ({user, signOut, handleLoginGoogle}) => {
     const navigate = useNavigate()
+    const [isActive, setIsActive] = useState(false)
 
-    return <div className={s.header}>
-        {user
-            ? <div className={s.userPart}>
-                Hello, {user?.displayName}!
+    return <div style={{marginBottom: '2rem'}}>
+        <div className={s.header}>
+            {user
+                ? <div className={s.userPart}>
+                    Hello, {user?.displayName}!
+                </div>
+                : <div className={s.userPart}>Hello!</div>}
+            <span className={s.divider}/>
+            <div onClick={() => navigate('/users')} className={s.button}>
+                USERS
             </div>
-            : <div className={s.userPart}>Hello!</div>}
-        <span className={s.divider}/>
-        <div onClick={() => navigate('/users')} className={s.button}>
-            USERS
-        </div>
-        <span className={s.divider}/>
-        <div onClick={() => navigate('/tasks')} className={s.button}>
-            TASKS
-        </div>
-        <span className={s.divider}/>
-        {user
-            ? <div className={s.button} onClick={signOut}>
-                Exit
+            <span className={s.divider}/>
+            <div onClick={() => navigate('/tasks')} className={s.button}>
+                TASKS
             </div>
-            : <div className={s.button} onClick={handleLoginGoogle}>
-                Sing in
-            </div>}
+            <span className={s.divider}/>
+            {user
+                ? <div className={s.button} onClick={signOut}>
+                    Exit
+                </div>
+                : <div className={s.button} onClick={() => setIsActive(!isActive)}>
+                    {isActive? <div>Close form</div> : <div>Sign in</div>}
+                </div>}
+        </div>
+        {isActive && <Enter handleLoginGoogle={handleLoginGoogle}/>}
     </div>
 };
 

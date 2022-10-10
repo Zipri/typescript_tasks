@@ -8,7 +8,6 @@
 .taskBody {
     width: 100%;
     text-align: justify;
-    transition: .5s; /* Время эффекта */
     border: .1rem dashed #8c929d;
     border-radius: 1rem;
     padding: 1rem;
@@ -27,7 +26,6 @@
 .completed {
     width: 100%;
     text-align: justify;
-    transition: .5s; /* Время эффекта */
     border: .1rem dashed #8c929d;
     border-radius: 1rem;
     padding: 1rem;
@@ -44,7 +42,6 @@
 }
 
 .task button {
-    transition: .5s; /* Время эффекта */
     margin: 0 0 0 1rem;
     font-size: 1.5rem;
     color: #a6acb4;
@@ -76,7 +73,6 @@
 
 .addTask input {
     width: 100%;
-    transition: .5s; /* Время эффекта */
     color: white;
     border: none;
     font-size: 1.5rem;
@@ -92,7 +88,6 @@
 }
 
 .addTask button {
-    transition: .5s; /* Время эффекта */
     font-size: 1.3rem;
     color: white;
     background-color: #565c65;

@@ -15,6 +15,6 @@ export interface IUserOld {
 export interface ITask {
     title: string,
     completed: boolean,
-    createdAt: string,
+    createdAt: Date,
     uid: string
 }
