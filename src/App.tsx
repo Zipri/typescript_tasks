@@ -18,12 +18,27 @@ const App = () => {
             alert(`Oops, something went wrong\n${error}`)
         }
     }
+    const loginEmail = async (email: string, password: string) => {
+        try {
+            await auth.signInWithEmailAndPassword(email, password)
+        } catch (error) {
+            alert(`Oops, something went wrong\n${error}`)
+        }
+    }
+    const registrationEmail = async (email: string, password: string) => {
+        try {
+            await auth.createUserWithEmailAndPassword(email, password)
+        } catch (error) {
+            alert(`Oops, something went wrong\n${error}`)
+        }
+    }
     const signOut = async () => {
         await auth.signOut();
     }
 
     return <BrowserRouter>
-        <Header user={user} handleLoginGoogle={handleLoginGoogle} signOut={signOut}/>
+        <Header user={user} handleLoginGoogle={handleLoginGoogle}
+                signOut={signOut} loginEmail={loginEmail} registrationEmail={registrationEmail}/>
         <Routes>
             <Route path='/' element={<PageTasks user={user}/>}/>
             <Route path='/tasks' element={<PageTasks user={user}/>}/>

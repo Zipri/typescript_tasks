@@ -14,6 +14,14 @@ code {
     monospace;
 }
 
-* {
+div {
+  transition: .5s; /* Время эффекта */
+}
+
+button {
+  transition: .5s; /* Время эффекта */
+}
+
+input {
   transition: .5s; /* Время эффекта */
 }

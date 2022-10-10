@@ -19,7 +19,7 @@ const PageTasks: FC<PTProps> = ({user}) => {
 
 
     useEffect(() => {
-        getTasks()
+        getTasks().then(() => setLoading(false))
     }, [])
 
 
@@ -27,13 +27,10 @@ const PageTasks: FC<PTProps> = ({user}) => {
         try {
             setLoading(true)
             if (user) {
-                firestore.collection("tasks").get()
-                    .then((doc) =>
-                        // setTasks(doc.docs.map((item: ITask) => item.data()))
-                        doc.docs.map(item => console.log(item.data()))
-                    )
+                const res = await firestore.collection("tasks")
+                    .where('uid', '==', user.uid).get()
+                console.log(res.docs.map((doc) => doc.data()))
             }
-            setLoading(false)
         } catch (error) {
             alert(error)
         }
@@ -62,6 +59,7 @@ const PageTasks: FC<PTProps> = ({user}) => {
         <div className={s.addTask}>
             <input value={value}
                    placeholder={"Write your task here"}
+                   onKeyPress={(e) => {if (e.key === 'Enter') handleAddTask()}}
                    onChange={(e) => setValue(e.target.value)}/>
             <button onClick={handleAddTask}>Add</button>
         </div>

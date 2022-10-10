@@ -8,9 +8,11 @@ interface HProps {
     user: firebase.User | null,
     signOut: () => Promise<void>,
     handleLoginGoogle: () => Promise<void>,
+    loginEmail: (email: string, password: string) => Promise<void>,
+    registrationEmail: (email: string, password: string) => Promise<void>
 }
 
-const Header: FC<HProps> = ({user, signOut, handleLoginGoogle}) => {
+const Header: FC<HProps> = ({user, signOut, handleLoginGoogle, loginEmail, registrationEmail}) => {
     const navigate = useNavigate()
     const [isActive, setIsActive] = useState(false)
 
@@ -18,7 +20,7 @@ const Header: FC<HProps> = ({user, signOut, handleLoginGoogle}) => {
         <div className={s.header}>
             {user
                 ? <div className={s.userPart}>
-                    Hello, {user?.displayName}!
+                    Hello, {user.displayName ? user.displayName : user.email?.split('@')[0]}!
                 </div>
                 : <div className={s.userPart}>Hello!</div>}
             <span className={s.divider}/>
@@ -38,7 +40,8 @@ const Header: FC<HProps> = ({user, signOut, handleLoginGoogle}) => {
                     {isActive? <div>Close form</div> : <div>Sign in</div>}
                 </div>}
         </div>
-        {isActive && <Enter handleLoginGoogle={handleLoginGoogle}/>}
+        {isActive && <Enter handleLoginGoogle={handleLoginGoogle} loginEmail={loginEmail}
+                            registrationEmail={registrationEmail} setIsActive={setIsActive}/>}
     </div>
 };
 
