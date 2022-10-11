@@ -16,5 +16,6 @@ export interface ITask {
     title: string,
     completed: boolean,
     createdAt: Date,
-    uid: string
+    uid: string,
+    id: string
 }

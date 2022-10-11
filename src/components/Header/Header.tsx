@@ -3,16 +3,39 @@ import s from './Header.module.css'
 import {useNavigate} from "react-router-dom";
 import firebase from "firebase/compat/app";
 import Enter from "../EnterForm/Enter";
+import {auth} from "../../firebase/firebase";
 
 interface HProps {
     user: firebase.User | null,
-    signOut: () => Promise<void>,
-    handleLoginGoogle: () => Promise<void>,
-    loginEmail: (email: string, password: string) => Promise<void>,
-    registrationEmail: (email: string, password: string) => Promise<void>
 }
 
-const Header: FC<HProps> = ({user, signOut, handleLoginGoogle, loginEmail, registrationEmail}) => {
+const handleLoginGoogle = async () => {
+    try {
+        const provider = new firebase.auth.GoogleAuthProvider()
+        await auth.signInWithPopup(provider)
+    } catch (error) {
+        alert(`Oops, something went wrong\n${error}`)
+    }
+}
+const loginEmail = async (email: string, password: string) => {
+    try {
+        await auth.signInWithEmailAndPassword(email, password)
+    } catch (error) {
+        alert(`Oops, something went wrong\n${error}`)
+    }
+}
+const registrationEmail = async (email: string, password: string) => {
+    try {
+        await auth.createUserWithEmailAndPassword(email, password)
+    } catch (error) {
+        alert(`Oops, something went wrong\n${error}`)
+    }
+}
+const signOut = async () => {
+    await auth.signOut();
+}
+
+const Header: FC<HProps> = ({user}) => {
     const navigate = useNavigate()
     const [isActive, setIsActive] = useState(false)
 

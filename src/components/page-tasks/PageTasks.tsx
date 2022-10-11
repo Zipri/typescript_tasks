@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useId, useState} from 'react';
 import s from './Task.module.css'
 import Loader from "../../common/Loader";
 import List from "../../common/List";
@@ -7,7 +7,6 @@ import firebase from "firebase/compat/app";
 import {firestore} from "../../firebase/firebase";
 import {ITask} from "../../types/types";
 
-
 interface PTProps {
     user: firebase.User | null
 }
@@ -15,22 +14,27 @@ interface PTProps {
 const PageTasks: FC<PTProps> = ({user}) => {
     const [loading, setLoading] = useState(true)
     const [value, setValue] = useState<string>('')
-    const [tasks, setTasks] = useState<ITask[]>([])
-
+    const [tasks, setTasks] = useState<ITask[]>()
 
     useEffect(() => {
-        getTasks().then(() => setLoading(false))
+        getTasks().then((data) => {
+            setTasks(data?.map(item => ({
+                title: item.title,
+                completed: item.completed,
+                createdAt: item.createdAt,
+                uid: item.uid,
+                id: item.id
+            })))
+            setLoading(false)
+        })
     }, [])
 
 
     async function getTasks() {
         try {
-            setLoading(true)
-            if (user) {
-                const res = await firestore.collection("tasks")
-                    .where('uid', '==', user.uid).get()
-                console.log(res.docs.map((doc) => doc.data()))
-            }
+            const response = await firestore
+                .collection("tasks").where('uid', '==', user?.uid).get()
+            return response.docs.map(doc => doc.data())
         } catch (error) {
             alert(error)
         }
@@ -38,12 +42,16 @@ const PageTasks: FC<PTProps> = ({user}) => {
 
     async function addTask(text: string) {
         try {
-            await firestore.collection("tasks").add({
+            const newTask = {
+                id: user?.uid + Date().toString(),
                 uid: user?.uid,
                 title: text,
                 completed: false,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            })
+            }
+            // @ts-ignore
+            setTasks([...tasks, newTask])
+            await firestore.collection("tasks").add(newTask)
         } catch (error) {
             alert(error)
         }
@@ -59,13 +67,15 @@ const PageTasks: FC<PTProps> = ({user}) => {
         <div className={s.addTask}>
             <input value={value}
                    placeholder={"Write your task here"}
-                   onKeyPress={(e) => {if (e.key === 'Enter') handleAddTask()}}
+                   onKeyPress={(e) => {
+                       if (e.key === 'Enter') handleAddTask()
+                   }}
                    onChange={(e) => setValue(e.target.value)}/>
             <button onClick={handleAddTask}>Add</button>
         </div>
-        {tasks.length
+        {tasks?.length
             ? <List items={tasks}
-                    renderItem={(task: ITask) => <TaskItem task={task} key={task.createdAt.toDateString()}/>}/>
+                    renderItem={(task: ITask) => <TaskItem task={task} key={task.id}/>}/>
             : <h1 style={{textAlign: 'center', color: 'white'}}>No tasks yet</h1>}
     </div>
 };
