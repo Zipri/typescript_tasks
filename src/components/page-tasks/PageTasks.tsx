@@ -32,9 +32,11 @@ const PageTasks: FC<PTProps> = ({user}) => {
 
     async function getTasks() {
         try {
-            const response = await firestore
-                .collection("tasks").where('uid', '==', user?.uid).get()
-            return response.docs.map(doc => doc.data())
+            if (user) {
+                const response = await firestore
+                    .collection("tasks").where('uid', '==', user?.uid).get()
+                return response.docs.map(doc => doc.data())
+            }
         } catch (error) {
             alert(error)
         }

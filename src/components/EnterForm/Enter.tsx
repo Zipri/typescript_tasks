@@ -28,6 +28,11 @@ const Enter: FC<EProps> = ({handleLoginGoogle, loginEmail, registrationEmail, se
         loginEmail(mail, password)
     }
 
+    const signWithGoogle = () => {
+        setIsActive(false)
+        handleLoginGoogle()
+    }
+
     return <div className={s.enterBody}>
         <div className={s.formDiv}>
             <div>
@@ -51,7 +56,7 @@ const Enter: FC<EProps> = ({handleLoginGoogle, loginEmail, registrationEmail, se
                 </div>
             </div>
             <div>
-                <button className={s.button} onClick={handleLoginGoogle}>
+                <button className={s.button} onClick={signWithGoogle}>
                     Sign in with Google account
                 </button>
             </div>
