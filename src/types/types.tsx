@@ -19,3 +19,9 @@ export interface ITask {
     uid: string,
     id: string
 }
+
+export interface IAction {
+    type: string,
+    tasks: ITask[],
+    loading: boolean
+}

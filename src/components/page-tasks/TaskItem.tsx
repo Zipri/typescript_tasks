@@ -3,7 +3,7 @@ import s from './Task.module.css'
 import {ITask} from "../../types/types";
 
 interface TIProps {
-    task: ITask
+    task: ITask,
 }
 
 const TaskItem: FC<TIProps> = ({task}) => {

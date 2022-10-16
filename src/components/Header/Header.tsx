@@ -1,6 +1,5 @@
 import React, {FC, useState} from 'react';
 import s from './Header.module.css'
-import {useNavigate} from "react-router-dom";
 import firebase from "firebase/compat/app";
 import Enter from "../EnterForm/Enter";
 import {auth} from "../../firebase/firebase";
@@ -36,7 +35,6 @@ const signOut = async () => {
 }
 
 const Header: FC<HProps> = ({user}) => {
-    const navigate = useNavigate()
     const [isActive, setIsActive] = useState(false)
 
     return <div style={{marginBottom: '2rem'}}>
@@ -47,11 +45,7 @@ const Header: FC<HProps> = ({user}) => {
                 </div>
                 : <div className={s.userPart}>Hello!</div>}
             <span className={s.divider}/>
-            <div onClick={() => navigate('/users')} className={s.button}>
-                USERS
-            </div>
-            <span className={s.divider}/>
-            <div onClick={() => navigate('/tasks')} className={s.button}>
+            <div className={s.button}>
                 TASKS
             </div>
             <span className={s.divider}/>

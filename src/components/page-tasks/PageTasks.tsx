@@ -8,26 +8,25 @@ import {firestore} from "../../firebase/firebase";
 import {ITask} from "../../types/types";
 
 interface PTProps {
-    user: firebase.User | null
+    user: firebase.User | null,
+    tasks: ITask[]
 }
 
-const PageTasks: FC<PTProps> = ({user}) => {
-    const [loading, setLoading] = useState(true)
+const PageTasks: FC<PTProps> = ({user, tasks}) => {
     const [value, setValue] = useState<string>('')
-    const [tasks, setTasks] = useState<ITask[]>()
 
-    useEffect(() => {
-        getTasks().then((data) => {
-            setTasks(data?.map(item => ({
-                title: item.title,
-                completed: item.completed,
-                createdAt: item.createdAt,
-                uid: item.uid,
-                id: item.id
-            })))
-            setLoading(false)
-        })
-    }, [])
+    // useEffect(() => {
+    //     getTasks().then((data) => {
+    //         setTasks(data?.map(item => ({
+    //             title: item.title,
+    //             completed: item.completed,
+    //             createdAt: item.createdAt,
+    //             uid: item.uid,
+    //             id: item.id
+    //         })))
+    //         setLoading(false)
+    //     })
+    // }, [])
 
 
     async function getTasks() {
@@ -41,7 +40,6 @@ const PageTasks: FC<PTProps> = ({user}) => {
             alert(error)
         }
     }
-
     async function addTask(text: string) {
         try {
             const newTask = {
@@ -58,12 +56,10 @@ const PageTasks: FC<PTProps> = ({user}) => {
             alert(error)
         }
     }
-
     const handleAddTask = () => {
         addTask(value).then(() => setValue(''))
     }
 
-    if (loading) return <Loader/>
     if (!user) return <h1 style={{textAlign: 'center', color: 'white'}}>Please Sign in</h1>
     return <div>
         <div className={s.addTask}>
@@ -77,7 +73,7 @@ const PageTasks: FC<PTProps> = ({user}) => {
         </div>
         {tasks?.length
             ? <List items={tasks}
-                    renderItem={(task: ITask) => <TaskItem task={task} key={task.id}/>}/>
+                    renderItem={(task: ITask) => <TaskItem task={task} key={task.id+Math.random()}/>}/>
             : <h1 style={{textAlign: 'center', color: 'white'}}>No tasks yet</h1>}
     </div>
 };
