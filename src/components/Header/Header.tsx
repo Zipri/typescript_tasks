@@ -45,10 +45,6 @@ const Header: FC<HProps> = ({user}) => {
                 </div>
                 : <div className={s.userPart}>Hello!</div>}
             <span className={s.divider}/>
-            <div className={s.button}>
-                TASKS
-            </div>
-            <span className={s.divider}/>
             {user
                 ? <div className={s.button} onClick={signOut}>
                     Exit
