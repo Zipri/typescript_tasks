@@ -4,9 +4,11 @@ import {ITask} from "../../types/types";
 
 interface TIProps {
     task: ITask,
+    deleteTask: (id: string) => Promise<void>
 }
 
-const TaskItem: FC<TIProps> = ({task}) => {
+const TaskItem: FC<TIProps> = ({task, deleteTask}) => {
+    const handleDeleteTask = () => deleteTask(task.id)
     return <div className={s.task}>
         <div className={task.completed ? s.completed : s.taskBody}>
             {task.title}
@@ -14,7 +16,7 @@ const TaskItem: FC<TIProps> = ({task}) => {
         <button className={s.edit}>
             Edit
         </button>
-        <button className={s.delete}>
+        <button className={s.delete} onClick={handleDeleteTask}>
             &times;
         </button>
     </div>

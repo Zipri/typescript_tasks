@@ -15,7 +15,7 @@ export interface IUserOld {
 export interface ITask {
     title: string,
     completed: boolean,
-    createdAt: Date,
+    createdAt: string,
     uid: string,
     id: string
 }
@@ -23,5 +23,7 @@ export interface ITask {
 export interface IAction {
     type: string,
     tasks: ITask[],
+    task: ITask,
+    id: string,
     loading: boolean
 }

@@ -9,55 +9,21 @@ import {ITask} from "../../types/types";
 
 interface PTProps {
     user: firebase.User | null,
-    tasks: ITask[]
+    tasks: ITask[],
+    addTask: (text: string) => Promise<void>,
+    deleteTask: (id: string) => Promise<void>,
 }
 
-const PageTasks: FC<PTProps> = ({user, tasks}) => {
+const PageTasks: FC<PTProps> = ({user, tasks, addTask, deleteTask}) => {
     const [value, setValue] = useState<string>('')
 
-    // useEffect(() => {
-    //     getTasks().then((data) => {
-    //         setTasks(data?.map(item => ({
-    //             title: item.title,
-    //             completed: item.completed,
-    //             createdAt: item.createdAt,
-    //             uid: item.uid,
-    //             id: item.id
-    //         })))
-    //         setLoading(false)
-    //     })
-    // }, [])
-
-
-    async function getTasks() {
-        try {
-            if (user) {
-                const response = await firestore
-                    .collection("tasks").where('uid', '==', user?.uid).get()
-                return response.docs.map(doc => doc.data())
-            }
-        } catch (error) {
-            alert(error)
-        }
-    }
-    async function addTask(text: string) {
-        try {
-            const newTask = {
-                id: user?.uid + Date().toString(),
-                uid: user?.uid,
-                title: text,
-                completed: false,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }
-            // @ts-ignore
-            setTasks([...tasks, newTask])
-            await firestore.collection("tasks").add(newTask)
-        } catch (error) {
-            alert(error)
-        }
-    }
     const handleAddTask = () => {
-        addTask(value).then(() => setValue(''))
+        if (value !== '') {
+            addTask(value)
+            setValue('')
+        } else {
+            alert("Empty field")
+        }
     }
 
     if (!user) return <h1 style={{textAlign: 'center', color: 'white'}}>Please Sign in</h1>
@@ -73,7 +39,9 @@ const PageTasks: FC<PTProps> = ({user, tasks}) => {
         </div>
         {tasks?.length
             ? <List items={tasks}
-                    renderItem={(task: ITask) => <TaskItem task={task} key={task.id+Math.random()}/>}/>
+                    renderItem={(task: ITask) => <TaskItem task={task}
+                                                           deleteTask={deleteTask}
+                                                           key={task.id+Math.random()}/>}/>
             : <h1 style={{textAlign: 'center', color: 'white'}}>No tasks yet</h1>}
     </div>
 };
