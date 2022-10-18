@@ -25,3 +25,7 @@ button {
 input {
   transition: .5s; /* Время эффекта */
 }
+
+textarea {
+  transition: .5s; /* Время эффекта */
+}

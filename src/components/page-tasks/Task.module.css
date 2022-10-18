@@ -15,6 +15,7 @@
     font-size: 1.5rem;
     cursor: pointer;
     background-color: #565c65;
+    word-break: break-word;
 }
 
 .taskBody:hover {
@@ -33,6 +34,7 @@
     font-size: 1.5rem;
     cursor: pointer;
     text-decoration: line-through;
+    word-break: break-word;
 }
 
 .completed:hover {
@@ -61,6 +63,19 @@
     border: .1rem solid white;
     color: #282e33;
     background-color: #d29e9e;
+}
+
+.updateTask {
+    font-size: 1.5rem;
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: white;
+    background-color: #565c65;
+    outline: none;
+    border: .1rem solid lightgreen;
 }
 
 /*PageTasks*/
